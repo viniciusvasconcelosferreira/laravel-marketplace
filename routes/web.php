@@ -52,6 +52,8 @@ Route::get('/model', function () {
     // Mass Assignment - Atribuição em massa
 
     $user = \App\Models\User::class;
+    $store = \App\Models\Store::class;
+    $category = \App\Models\Category::class;
 
 //    $user::create([
 //        'name' => 'Nanderson Castro',
@@ -65,5 +67,14 @@ Route::get('/model', function () {
 //        'name' => 'Nanderson Castro de Souza'
 //    ]);
 //dd($user);
+
+    //Como pegar a loja de um usuário
+    //return dd($user::find(4)->store()->count()); // O objeto único (Store) e se for Collection de Dados (Objetos)
+//    return $store::find(1)->products()->where('id',1)->get();
+//    return $store::find(1)->products;
+
+    //Pegar as categorias de uma loja
+//    $category->products;
+
     return $user::all(); //Retorno de uma collection
 });
