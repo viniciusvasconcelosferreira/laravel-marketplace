@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Store;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -22,5 +24,16 @@ class UsersTableSeeder extends Seeder
                 'remember_token' => 'gdahsljkgdhsaljk',
             ]);
         */
+
+        // create trabalha com arrays e save com objetos
+//        factory(\App\Models\User::class,40)->create()->each(function ($user){
+//            $user->store()->save(factory(\App\Models\Store::class)->make());
+//        });
+
+        User::factory(40)->create()->each(function ($user){
+            $user->store()->save(Store::factory()->make());
+        });
+
+
     }
 }
