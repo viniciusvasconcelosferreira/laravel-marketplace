@@ -13,4 +13,10 @@ class Store extends Model
         - protected $table = 'tb_lojas';
     */
     use HasFactory;
+
+    public function user()
+    {
+        //pertence para ou pertence a
+        return $this->belongsTo(User::class);
+    }
 }

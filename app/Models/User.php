@@ -41,4 +41,11 @@ class User extends Authenticatable
     protected $casts = [ //conversão automatica
         'email_verified_at' => 'datetime',
     ];
+
+    public function store()
+    {
+        //possui
+        //caso campo no banco seja diferente do nome da model, identificar o mesmo via parametro return $this->hasOne(Store::class,'<nome_do_campo>');
+        return $this->hasOne(Store::class);
+    }
 }
