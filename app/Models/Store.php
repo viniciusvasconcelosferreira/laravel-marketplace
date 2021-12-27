@@ -14,6 +14,14 @@ class Store extends Model
     */
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'description',
+        'phone',
+        'mobile_phone',
+        'slug',
+    ];
+
     public function user()
     {
         //pertence para ou pertence a
