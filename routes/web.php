@@ -54,6 +54,7 @@ Route::get('/model', function () {
     $user = \App\Models\User::class;
     $store = \App\Models\Store::class;
     $category = \App\Models\Category::class;
+    $product = \App\Models\Product::class;
 
 //    $user::create([
 //        'name' => 'Nanderson Castro',
@@ -76,5 +77,43 @@ Route::get('/model', function () {
     //Pegar as categorias de uma loja
 //    $category->products;
 
-    return $user::all(); //Retorno de uma collection
+    //Criar uma loja para um usuário
+//    $user::find(10)->store()->create([
+//        'name' => 'Loja Teste',
+//        'description' => 'Loja teste de produtos de informática',
+//        'mobile_phone' => 'XX-XXXXX-XXXX',
+//        'phone' => 'XX-XXXXX-XXXX',
+//        'slug' => 'loja-teste'
+//    ]);
+
+    //Criar um produto para uma loja
+//    $store = $store::find(41);
+//    $store->products()->create([
+//        'name' => 'Notebook Dell',
+//        'description' => 'CORE I5 10GB',
+//        'body' => 'Qualquer coisa...',
+//        'price' => 2999.90,
+//        'slug' => 'notebook-dell',
+//    ]);
+//    dd($store);
+
+    //Criar uma categoria
+//    $category = $category::create(
+//        [
+//            'name' => 'Games',
+//            'description' => null,
+//            'slug' => 'games'
+//        ],
+//        [
+//            'name' => 'Notebooks',
+//            'description' => null,
+//            'slug' => 'notebooks'
+//        ]
+//    );
+
+    //Adicionar um produto para uma categoria ou vice-versa
+//    $product = $product::find(49);
+//    dd($product->categories()->sync([1,2])); // attach adicionar e detach remover (retorna a quantidade de itens removidos)
+
+    return $category::all(); //Retorno de uma collection
 });
