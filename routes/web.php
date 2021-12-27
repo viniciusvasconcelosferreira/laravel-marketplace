@@ -28,3 +28,26 @@ Route::get('/', function () {
     */
     return view('welcome');
 });
+
+Route::get('/model',function (){
+    //$products = \App\Models\Product::all(); //select * from products
+
+    // Inserção chamada Active Record
+    $user = new \App\Models\User();
+    //$user = \App\Models\User::find(1);
+    //$user->name = 'Usuário Teste';
+    //$user->email = 'email@teste.com';
+    // $user->password = bcrypt('12345678');
+    //$user->save();
+    //return
+
+    /*
+     \App\Models\User::all() - retorna todos os usuários
+     \App\Models\User::find(1) - retorna o usuário baseado no id
+     \App\Models\User::where('name','Christelle Stiedemann') - retorna o usuário baseado no where (select * from users where name = 'Christelle Stiedemann')
+    \App\Models\User::where('name','Christelle Stiedemann')->first() - retorna o primeiro usuário baseado no where
+    \App\Models\User::paginate(10) - retorna todos os usuários com um limite de 10 por página
+    */
+
+    return $user::all(); //Retorno de uma collection
+});
