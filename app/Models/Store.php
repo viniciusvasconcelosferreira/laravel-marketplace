@@ -19,4 +19,9 @@ class Store extends Model
         //pertence para ou pertence a
         return $this->belongsTo(User::class);
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
