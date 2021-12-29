@@ -13,6 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//Route::get
+//Route::post
+//Route::put
+//Route::patch
+//Route::delete
+//Route::options
+
+//Route::get('/admin/stores', 'App\Http\Controllers\Admin\StoreController@index');
+//Route::get('/stores', [\App\Http\Controllers\Admin\StoreController::class, 'index']);
+
+
 Route::get('/', function () {
     /*
     Maneiras de enviar parametros para view:
@@ -116,4 +127,15 @@ Route::get('/model', function () {
 //    dd($product->categories()->sync([1,2])); // attach adicionar e detach remover (retorna a quantidade de itens removidos)
 
     return $category::all(); //Retorno de uma collection
+});
+
+Route::prefix('admin')->name('admin.')->namespace('App\Http\Controllers\Admin')->group(function () {
+    Route::prefix('stores')->name('stores.')->group(function () {
+        Route::get('/', 'StoreController@index')->name('index');
+        Route::get('/create', 'StoreController@create')->name('create');
+        Route::post('/store', 'StoreController@store')->name('store');
+        Route::get('/{store}/edit', 'StoreController@edit')->name('edit');
+        Route::post('/update/{store}', 'StoreController@update')->name('update');
+        Route::get('/destroy/{store}', 'StoreController@destroy')->name('destroy');
+    });
 });
