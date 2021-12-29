@@ -12,7 +12,7 @@ class StoreController extends Controller
     public function index()
     {
         //paginate; simplePaginate; cursorPaginate
-        $stores = Store::simplePaginate(10);
+        $stores = Store::paginate(10);
 
 //        dd($stores);
 

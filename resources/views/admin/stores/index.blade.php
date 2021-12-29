@@ -24,5 +24,6 @@
         </tbody>
     </table>
 
-    {{$stores->links()}}
+    {{$stores->links('pagination::bootstrap-4')}}
+
 @endsection
