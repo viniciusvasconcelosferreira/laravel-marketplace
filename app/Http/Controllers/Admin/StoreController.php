@@ -6,17 +6,23 @@ use App\Http\Controllers\Controller;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreRequest;
 
 class StoreController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('user.has.store')->only(['create', 'store']);
+    }
+
     public function index()
     {
         //paginate; simplePaginate; cursorPaginate
-        $stores = Store::paginate(10);
-
+//        $stores = Store::paginate(10);
+        $store = auth()->user()->store;
 //        dd($stores);
 
-        return view('admin.stores.index', compact('stores'));
+        return view('admin.stores.index', compact('store'));
     }
 
     public function create()
@@ -26,7 +32,7 @@ class StoreController extends Controller
         return view('admin.stores.create', compact('users'));
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
         $data = $request->all();
 
@@ -46,7 +52,7 @@ class StoreController extends Controller
         return view('admin.stores.edit', compact('store'));
     }
 
-    public function update(Request $request, $store)
+    public function update(StoreRequest $request, $store)
     {
         $data = $request->all();
 

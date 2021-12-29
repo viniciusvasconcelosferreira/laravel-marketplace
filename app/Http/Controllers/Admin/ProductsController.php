@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Store;
 use Illuminate\Http\Request;
-use function Symfony\Component\String\s;
+use App\Http\Requests\ProductRequest;
 
 class ProductsController extends Controller
 {
@@ -51,11 +51,11 @@ class ProductsController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         $data = $request->all();
 
-        $store = Store::find($data['store']);
+        $store = auth()->user()->store;
 
         $store->products()->create($data);
 
@@ -94,7 +94,7 @@ class ProductsController extends Controller
      * @param int $product
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $product)
+    public function update(ProductRequest $request, $product)
     {
         $data = $request->all();
 
