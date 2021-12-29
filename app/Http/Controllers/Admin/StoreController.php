@@ -14,6 +14,8 @@ class StoreController extends Controller
         //paginate; simplePaginate; cursorPaginate
         $stores = Store::simplePaginate(10);
 
+//        dd($stores);
+
         return view('admin.stores.index', compact('stores'));
     }
 
