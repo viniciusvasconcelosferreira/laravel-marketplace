@@ -1,8 +1,9 @@
 @extends('layouts.app')
 @section('content')
-    <h1>Criar loja</h1>
+    <h1>Atualizar loja</h1>
     <form action="{{route('admin.stores.update',['store'=>$store->id])}}" method="post">
-        <input type="hidden" name="_token" value="{{csrf_token()}}">
+        @csrf
+        @method("PUT")
 
         <div class="form-group">
             <label>Nome Loja</label>
@@ -30,7 +31,8 @@
         </div>
 
         <div>
-            <button type="submit" class="btn btn-lg btn-success">Atualizar loja</button>
+            <a class="btn btn-lg btn-secondary" href="{{route('admin.stores.index')}}" role="button">Voltar à Página</a>
+            <button type="submit" class="btn btn-lg btn-primary">Atualizar Loja</button>
         </div>
     </form>
 

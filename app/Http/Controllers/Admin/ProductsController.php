@@ -48,16 +48,23 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $store = Store::find($data['store']);
+
+        $store->products()->create($data);
+
+        flash('Produto criado com sucesso!')->success();
+        return redirect()->route('admin.products.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param int $product
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($product)
     {
         //
     }
@@ -70,7 +77,7 @@ class ProductsController extends Controller
      */
     public function edit($product)
     {
-        $product = $this->product->find($product);
+        $product = $this->product->findOrFail($product);
 
         return view('admin.products.edit', compact('product'));
     }
@@ -84,7 +91,13 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $product)
     {
-        //
+        $data = $request->all();
+
+        $product = $this->product->find($product);
+        $product->update($data);
+
+        flash('Produto atualizado com sucesso!')->success();
+        return redirect()->route('admin.products.index');
     }
 
     /**
@@ -95,6 +108,11 @@ class ProductsController extends Controller
      */
     public function destroy($product)
     {
-        //
+
+        $product = $this->product->find($product);
+        $product->delete();
+
+        flash('Produto removido com sucesso!')->success();
+        return redirect()->route('admin.products.index');
     }
 }

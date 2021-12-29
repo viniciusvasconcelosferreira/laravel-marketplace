@@ -2,7 +2,7 @@
 @section('content')
     <h1>Criar loja</h1>
     <form action="{{route('admin.stores.store')}}" method="post">
-        <input type="hidden" name="_token" value="{{csrf_token()}}">
+        @csrf
 
         <div class="form-group">
             <label>Nome Loja</label>
@@ -39,7 +39,8 @@
         </div>
 
         <div>
-            <button type="submit" class="btn btn-lg btn-success">Criar loja</button>
+            <a class="btn btn-lg btn-secondary" href="{{route('admin.stores.index')}}" role="button">Voltar à Página</a>
+            <button type="submit" class="btn btn-lg btn-primary">Criar Loja</button>
         </div>
     </form>
 
