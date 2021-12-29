@@ -29,14 +29,14 @@
             <input type="text" name="slug" class="form-control">
         </div>
 
-        <div class="form-group">
-            <label>Usuário</label>
-            <select name="user" class="form-control">
-                @foreach($users as $user)
-                    <option value="{{$user->id}}">{{$user->name}}</option>
-                @endforeach
-            </select>
-        </div>
+{{--        <div class="form-group">--}}
+{{--            <label>Usuário</label>--}}
+{{--            <select name="user" class="form-control">--}}
+{{--                @foreach($users as $user)--}}
+{{--                    <option value="{{$user->id}}">{{$user->name}}</option>--}}
+{{--                @endforeach--}}
+{{--            </select>--}}
+{{--        </div>--}}
 
         <div>
             <a class="btn btn-lg btn-secondary" href="{{route('admin.stores.index')}}" role="button">Voltar à Página</a>

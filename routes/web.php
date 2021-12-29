@@ -38,7 +38,8 @@ Route::get('/', function () {
 
     */
     return view('welcome');
-});
+})->name('home');
+//name -> Apelido
 
 Route::get('/model', function () {
     //$products = \App\Models\Product::all(); //select * from products
@@ -129,7 +130,8 @@ Route::get('/model', function () {
     return $category::all(); //Retorno de uma collection
 });
 
-Route::prefix('admin')->name('admin.')->namespace('App\Http\Controllers\Admin')->group(function () {
+Route::group(['middleware' => ['auth']], function () {
+    Route::prefix('admin')->name('admin.')->namespace('App\Http\Controllers\Admin')->group(function () {
 
 //    Route::prefix('stores')->name('stores.')->group(function () {
 //        Route::get('/', 'StoreController@index')->name('index');
@@ -140,7 +142,12 @@ Route::prefix('admin')->name('admin.')->namespace('App\Http\Controllers\Admin')-
 //        Route::get('/destroy/{store}', 'StoreController@destroy')->name('destroy');
 //    });
 
-    Route::resource('stores','StoreController');
+        Route::resource('stores', 'StoreController');
 
-    Route::resource('products', 'ProductsController');
+        Route::resource('products', 'ProductsController');
+    });
 });
+
+Auth::routes();
+
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

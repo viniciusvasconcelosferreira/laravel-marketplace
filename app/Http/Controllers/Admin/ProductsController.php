@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\Store;
 use Illuminate\Http\Request;
+use function Symfony\Component\String\s;
 
 class ProductsController extends Controller
 {
@@ -36,6 +37,10 @@ class ProductsController extends Controller
     public function create()
     {
         $stores = Store::all(['id', 'name']);
+
+//        $stores = auth()->user()->store->name;
+//        dd($stores);
+
 
         return view('admin.products.create', compact('stores'));
     }
