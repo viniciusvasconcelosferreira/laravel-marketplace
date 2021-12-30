@@ -145,6 +145,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('stores', 'StoreController');
 
         Route::resource('products', 'ProductsController');
+
+        Route::resource('categories','CategoryController');
     });
 });
 

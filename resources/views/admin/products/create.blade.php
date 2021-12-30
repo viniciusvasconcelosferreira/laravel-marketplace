@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <h1>Criar Produto</h1>
-    <form action="{{route('admin.products.store')}}" method="post">
+    <form action="{{route('admin.products.store')}}" method="post" enctype="multipart/form-data">
         @csrf
 
         <div class="form-group">
@@ -28,7 +28,8 @@
 
         <div class="form-group">
             <label>Conteúdo</label>
-            <textarea name="body" cols="30" rows="10" class="form-control @error('body') is-invalid @enderror">{{old('body')}}</textarea>
+            <textarea name="body" cols="30" rows="10"
+                      class="form-control @error('body') is-invalid @enderror">{{old('body')}}</textarea>
             @error('body')
             <div class="invalid-feedback">
                 {{$message}}
@@ -45,6 +46,21 @@
                 {{$message}}
             </div>
             @enderror
+        </div>
+
+        <div class="form-group">
+            <label>Categorias</label>
+            <select name="categories[]" class="form-control" multiple>
+                @foreach($categories as $category)
+                    <option value="{{$category->id}}">{{$category->name}}</option>
+                @endforeach
+
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Fotos do Produto</label>
+            <input type="file" name="photos[]" class="form-control" multiple>
         </div>
 
         <div class="form-group">

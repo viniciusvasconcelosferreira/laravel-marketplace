@@ -1,5 +1,5 @@
 <?php
-
+//arquivo de configuração de upload de arquivos
 return [
 
     /*

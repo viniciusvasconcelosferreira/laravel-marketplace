@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Store;
 use Illuminate\Http\Request;
@@ -24,7 +25,12 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $products = $this->product->paginate(10);
+        // armazena na variavel products a loja(objeto) do usuário
+        // autenticado que faz acesso aos produtos via metodo para
+        // poder gerar o paginate
+        $products = auth()->user()->store->products()->paginate(10);
+
+//        dd($products);
 
         return view('admin.products.index', compact('products'));
     }
@@ -36,13 +42,13 @@ class ProductsController extends Controller
      */
     public function create()
     {
-        $stores = Store::all(['id', 'name']);
+        $categories = Category::all(['id', 'name']);
 
 //        $stores = auth()->user()->store->name;
 //        dd($stores);
 
 
-        return view('admin.products.create', compact('stores'));
+        return view('admin.products.create', compact('categories'));
     }
 
     /**
@@ -53,11 +59,20 @@ class ProductsController extends Controller
      */
     public function store(ProductRequest $request)
     {
+
         $data = $request->all();
 
         $store = auth()->user()->store;
 
-        $store->products()->create($data);
+        $product = $store->products()->create($data);
+
+        $product->categories()->sync($data['categories']);
+
+        if ($request->hasFile('photos')) {
+            $images = $this->imageUpload($request, 'image');
+            //insercao das referencias das imagens na base
+            $product->photos()->createMany($images);
+        }
 
         flash('Produto criado com sucesso!')->success();
         return redirect()->route('admin.products.index');
@@ -83,8 +98,9 @@ class ProductsController extends Controller
     public function edit($product)
     {
         $product = $this->product->findOrFail($product);
+        $categories = Category::all(['id', 'name']);
 
-        return view('admin.products.edit', compact('product'));
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     /**
@@ -100,6 +116,12 @@ class ProductsController extends Controller
 
         $product = $this->product->find($product);
         $product->update($data);
+        $product->categories()->sync($data['categories']);
+        if ($request->hasFile('photos')) {
+            $images = $this->imageUpload($request, 'image');
+            //insercao das referencias das imagens na base
+            $product->photos()->createMany($images);
+        }
 
         flash('Produto atualizado com sucesso!')->success();
         return redirect()->route('admin.products.index');
@@ -118,6 +140,20 @@ class ProductsController extends Controller
         $product->delete();
 
         flash('Produto removido com sucesso!')->success();
+
         return redirect()->route('admin.products.index');
+    }
+
+    private function imageUpload(Request $request, $imageColumn)
+    {
+        $files = $request->file('photos');
+
+        $uploadedImages = [];
+
+        foreach ($files as $file) {
+            $uploadedImages[] = [$imageColumn => $file->store('products', 'public')];
+        }
+
+        return $uploadedImages;
     }
 }
