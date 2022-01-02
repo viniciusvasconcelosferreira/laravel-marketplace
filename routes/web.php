@@ -23,22 +23,29 @@ use Illuminate\Support\Facades\Route;
 //Route::get('/admin/stores', 'App\Http\Controllers\Admin\StoreController@index');
 //Route::get('/stores', [\App\Http\Controllers\Admin\StoreController::class, 'index']);
 
-
-Route::get('/', function () {
-    /*
-    Maneiras de enviar parametros para view:
-    - Parametro:
-        - $helloWorld = 'Hello World';
-    - Envio:
-        - Array
-            - Ex.: return view('welcome',['helloWordl'=>$helloWorld]);
-        - Compact
-            - Ex.: return view('welcome',compact('helloWorld'));
+/*
+Maneiras de enviar parametros para view:
+- Parametro:
+    - $helloWorld = 'Hello World';
+- Envio:
+    - Array
+        - Ex.: return view('welcome',['helloWordl'=>$helloWorld]);
+    - Compact
+        - Ex.: return view('welcome',compact('helloWorld'));
 
 
-    */
-    return view('welcome');
-})->name('home');
+*/
+Route::namespace('App\Http\Controllers')->group(function () {
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/product/{slug}', 'HomeController@single')->name('product.single');
+
+    Route::prefix('cart')->name('cart.')->group(function () {
+        Route::get('/', 'CartController@index')->name('index');
+        Route::post('add', 'CartController@add')->name('add');
+        Route::get('remove/{slug}', 'CartController@remove')->name('remove');
+        Route::get('cancel', 'CartController@cancel')->name('cancel');
+    });
+});
 //name -> Apelido
 
 Route::get('/model', function () {

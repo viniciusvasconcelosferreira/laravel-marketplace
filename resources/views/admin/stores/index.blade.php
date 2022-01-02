@@ -13,7 +13,6 @@
         </tr>
         </thead>
         <tbody>
-        {{--        @foreach($stores as $store)--}}
         @if(!$store)
             <tr class="text-center">
                 <td colspan="4">O usuário não possui loja cadastrada</td>
@@ -36,10 +35,7 @@
                 </td>
             </tr>
         @endif
-        {{--        @endforeach--}}
         </tbody>
     </table>
-
-    {{--    {{$stores->links('pagination::bootstrap-4')}}--}}
 
 @endsection

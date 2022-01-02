@@ -5,7 +5,6 @@
           enctype="multipart/form-data">
         @csrf
         @method("PUT")
-
         <div class="form-group">
             <label>Nome Produto</label>
             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
@@ -73,17 +72,6 @@
             </div>
             @enderror
         </div>
-
-        {{--<div class="form-group">
-            <label>Slug</label>
-            <input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror"
-                   value="{{$product->slug}}">
-            @error('slug')
-            <div class="invalid-feedback">
-                {{$message}}
-            </div>
-            @enderror
-        </div>--}}
 
         <div>
             <a class="btn btn-lg btn-secondary" href="{{route('admin.products.index')}}" role="button">Voltar à

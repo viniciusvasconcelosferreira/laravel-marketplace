@@ -42,5 +42,4 @@
     @if($products)
         {{$products->links('pagination::bootstrap-4')}}
     @endif
-
 @endsection

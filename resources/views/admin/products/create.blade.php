@@ -3,7 +3,6 @@
     <h1>Criar Produto</h1>
     <form action="{{route('admin.products.store')}}" method="post" enctype="multipart/form-data">
         @csrf
-
         <div class="form-group">
             <label>Nome Produto</label>
             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
@@ -54,7 +53,6 @@
                 @foreach($categories as $category)
                     <option value="{{$category->id}}">{{$category->name}}</option>
                 @endforeach
-
             </select>
         </div>
 
@@ -67,19 +65,6 @@
             </div>
             @enderror
         </div>
-
-
-
-        {{--<div class="form-group">
-            <label>Slug</label>
-            <input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror"
-                   value="{{old('slug')}}">
-            @error('slug')
-            <div class="invalid-feedback">
-                {{$message}}
-            </div>
-            @enderror
-        </div>--}}
 
         <div>
             <a class="btn btn-lg btn-secondary" href="{{route('admin.products.index')}}" role="button">Voltar à
