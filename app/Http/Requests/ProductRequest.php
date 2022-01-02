@@ -28,6 +28,14 @@ class ProductRequest extends FormRequest
             'description' => 'required|min:30',
             'body' => 'required',
             'price' => 'required',
+            'photos' => 'image'
         ];
     }
+
+    /*public function messages()
+    {
+        return [
+            'image' => 'O campo :attribute deve ser uma imagem válida.',
+        ];
+    }*/
 }
