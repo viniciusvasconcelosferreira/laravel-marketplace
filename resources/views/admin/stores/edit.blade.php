@@ -73,7 +73,7 @@
                 {{$message}}
             </div>
             @enderror
-        </div>
+        </div>--}}
 
         <div>
             <a class="btn btn-lg btn-secondary" href="{{route('admin.stores.index')}}" role="button">Voltar à Página</a>
