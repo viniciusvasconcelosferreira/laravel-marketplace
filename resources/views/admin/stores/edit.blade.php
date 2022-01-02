@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <h1>Atualizar loja</h1>
-    <form action="{{route('admin.stores.update',['store'=>$store->id])}}" method="post">
+    <form action="{{route('admin.stores.update',['store'=>$store->id])}}" method="post" enctype="multipart/form-data">
         @csrf
         @method("PUT")
 
@@ -50,6 +50,21 @@
         </div>
 
         <div class="form-group">
+            @if($store->logo)
+                <p>
+                    <img src="{{asset('storage/'.$store->logo)}}"/>
+                </p>
+            @endif
+            <label>Logo da Loja</label>
+            <input type="file" name="logo" class="form-control @error('logo') is-invalid @enderror">
+            @error('logo')
+            <div class="invalid-feedback">
+                {{$message}}
+            </div>
+            @enderror
+        </div>
+
+        {{--<div class="form-group">
             <label>Slug</label>
             <input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror"
                    value="{{$store->slug}}">
@@ -58,7 +73,7 @@
                 {{$message}}
             </div>
             @enderror
-        </div>
+        </div>--}}
 
         <div>
             <a class="btn btn-lg btn-secondary" href="{{route('admin.stores.index')}}" role="button">Voltar à Página</a>

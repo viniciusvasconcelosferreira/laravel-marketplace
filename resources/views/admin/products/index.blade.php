@@ -12,28 +12,35 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($products as $product)
-            <tr>
-                <td>{{$product->id}}</td>
-                <td>{{$product->name}}</td>
-                <td>R$ {{number_format($product->price,2,',','.')}}</td>
-                <td>{{$product->store->name}}</td>
-                <td style="text-transform: uppercase">
-                    <div class="btn-group">
-                        <a href="{{route('admin.products.edit',['product'=>$product->id])}}"
-                           class="btn btn-sm btn-primary">Editar</a>
-                        <form action="{{route('admin.products.destroy',['product'=>$product->id])}}" method="post">
-                            @csrf
-                            @method("DELETE")
-                            <button type="submit" class="btn btn-sm btn-danger">Remover</button>
-                        </form>
-                    </div>
-                </td>
+        @if($products->count() <= 0)
+            <tr class="text-center">
+                <td colspan="5">O usuário não possui loja e/ou produto(s) cadastrado(s)!</td>
             </tr>
-        @endforeach
+        @else
+            @foreach($products as $product)
+                <tr>
+                    <td>{{$product->id}}</td>
+                    <td>{{$product->name}}</td>
+                    <td>R$ {{number_format($product->price,2,',','.')}}</td>
+                    <td>{{$product->store->name}}</td>
+                    <td style="text-transform: uppercase">
+                        <div class="btn-group">
+                            <a href="{{route('admin.products.edit',['product'=>$product->id])}}"
+                               class="btn btn-sm btn-primary">Editar</a>
+                            <form action="{{route('admin.products.destroy',['product'=>$product->id])}}" method="post">
+                                @csrf
+                                @method("DELETE")
+                                <button type="submit" class="btn btn-sm btn-danger">Remover</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
+        @endif
         </tbody>
     </table>
-
-    {{$products->links('pagination::bootstrap-4')}}
+    @if($products)
+        {{$products->links('pagination::bootstrap-4')}}
+    @endif
 
 @endsection

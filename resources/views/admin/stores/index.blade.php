@@ -14,22 +14,28 @@
         </thead>
         <tbody>
         {{--        @foreach($stores as $store)--}}
-        <tr>
-            <td>{{$store->id}}</td>
-            <td>{{$store->name}}</td>
-            <td>{{$store->products->count()}}</td>
-            <td style="text-transform: uppercase">
-                <div class="btn-group">
-                    <a href="{{route('admin.stores.edit',['store'=>$store->id])}}"
-                       class="btn btn-sm btn-primary">Editar</a>
-                    <form action="{{route('admin.stores.destroy',['store'=>$store->id])}}" method="post">
-                        @csrf
-                        @method("DELETE")
-                        <button type="submit" class="btn btn-sm btn-danger">Remover</button>
-                    </form>
-                </div>
-            </td>
-        </tr>
+        @if(!$store)
+            <tr class="text-center">
+                <td colspan="4">O usuário não possui loja cadastrada</td>
+            </tr>
+        @else
+            <tr>
+                <td>{{$store->id}}</td>
+                <td>{{$store->name}}</td>
+                <td>{{$store->products->count()}}</td>
+                <td style="text-transform: uppercase">
+                    <div class="btn-group">
+                        <a href="{{route('admin.stores.edit',['store'=>$store->id])}}"
+                           class="btn btn-sm btn-primary">Editar</a>
+                        <form action="{{route('admin.stores.destroy',['store'=>$store->id])}}" method="post">
+                            @csrf
+                            @method("DELETE")
+                            <button type="submit" class="btn btn-sm btn-danger">Remover</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        @endif
         {{--        @endforeach--}}
         </tbody>
     </table>

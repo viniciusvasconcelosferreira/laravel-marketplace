@@ -27,7 +27,7 @@
             @enderror
         </div>
 
-        <div class="form-group">
+        {{--<div class="form-group">
             <label>Slug</label>
             <input type="text" name="slug" class="form-control @error('slug') is-invalid @enderror"
                    value="{{$category->slug}}">
@@ -36,7 +36,7 @@
                 {{$message}}
             </div>
             @enderror
-        </div>
+        </div>--}}
 
         <div>
             <a class="btn btn-lg btn-secondary" href="{{route('admin.categories.index')}}" role="button">Voltar à

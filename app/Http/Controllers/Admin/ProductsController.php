@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\Store;
-use Illuminate\Http\Request;
+use App\Traits\UploadTrait;
 use App\Http\Requests\ProductRequest;
 
 class ProductsController extends Controller
 {
+    use UploadTrait;
+
     private $product;
 
     public function __construct(Product $product)
@@ -61,15 +62,16 @@ class ProductsController extends Controller
     {
 
         $data = $request->all();
+        $categories = $request->get('categories', null);
 
         $store = auth()->user()->store;
 
         $product = $store->products()->create($data);
 
-        $product->categories()->sync($data['categories']);
+        $product->categories()->sync($categories);
 
         if ($request->hasFile('photos')) {
-            $images = $this->imageUpload($request, 'image');
+            $images = $this->imageUpload($request->file('photos'), 'image');
             //insercao das referencias das imagens na base
             $product->photos()->createMany($images);
         }
@@ -113,12 +115,13 @@ class ProductsController extends Controller
     public function update(ProductRequest $request, $product)
     {
         $data = $request->all();
-
+        $categories = $request->get('categories', null);
         $product = $this->product->find($product);
         $product->update($data);
-        $product->categories()->sync($data['categories']);
+        if (!is_null($categories))
+            $product->categories()->sync($categories);
         if ($request->hasFile('photos')) {
-            $images = $this->imageUpload($request, 'image');
+            $images = $this->imageUpload($request->file('photos'), 'image');
             //insercao das referencias das imagens na base
             $product->photos()->createMany($images);
         }
@@ -142,18 +145,5 @@ class ProductsController extends Controller
         flash('Produto removido com sucesso!')->success();
 
         return redirect()->route('admin.products.index');
-    }
-
-    private function imageUpload(Request $request, $imageColumn)
-    {
-        $files = $request->file('photos');
-
-        $uploadedImages = [];
-
-        foreach ($files as $file) {
-            $uploadedImages[] = [$imageColumn => $file->store('products', 'public')];
-        }
-
-        return $uploadedImages;
     }
 }
