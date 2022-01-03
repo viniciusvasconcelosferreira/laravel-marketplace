@@ -10,7 +10,7 @@
                     @else
                         <img src="{{asset('assets/img/no-photo.jpg')}}" class="card-img-top" alt="">
                     @endif
-                    <div class="car-body">
+                    <div class="card-body">
                         <h5 class="card-title">{{$product->name}}</h5>
                         <p class="card-text">{{$product->description}}</p>
                         <h3>

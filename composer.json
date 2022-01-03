@@ -13,6 +13,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
+        "pagseguro/pagseguro-php-sdk": "^6.0",
         "spatie/laravel-sluggable": "^2.6"
     },
     "require-dev": {

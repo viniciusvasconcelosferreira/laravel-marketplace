@@ -45,6 +45,10 @@ Route::namespace('App\Http\Controllers')->group(function () {
         Route::get('remove/{slug}', 'CartController@remove')->name('remove');
         Route::get('cancel', 'CartController@cancel')->name('cancel');
     });
+
+    Route::prefix('checkout')->name('checkout.')->group(function () {
+        Route::get('/', 'CheckoutController@index')->name('index');
+    });
 });
 //name -> Apelido
 

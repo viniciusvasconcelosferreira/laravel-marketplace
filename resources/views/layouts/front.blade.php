@@ -45,38 +45,38 @@
                     <a class="nav-link" href="{{route('admin.categories.index')}}">Categorias</a>
                 </li>
             </ul>
-
-            <div class="my-2 my-lg-0">
-                <ul class="navbar-nav mr-auto">
-                    {{--                    <li class="nav-item">--}}
-                    {{--                        <a class="nav-link" href="#" onclick="event.preventDefault();--}}
-                    {{--                                                                  document.querySelector('form.logout').submit(); ">Sair</a>--}}
-
-                    {{--                        <form action="{{route('logout')}}" class="logout" method="POST" style="display:none;">--}}
-                    {{--                            @csrf--}}
-                    {{--                        </form>--}}
-                    {{--                    </li>--}}
-                    {{--                    <li class="nav-item">--}}
-                    {{--                        <span class="nav-link">{{auth()->user()->name}}</span>--}}
-                    {{--                    </li>--}}
-                    <li class="nav-item">
-                        <a href="{{route('cart.index')}}" class="nav-link">
-                            Carrinho
-                            <span class="badge bg-danger">
-                            @if(session()->has('cart'))
-                                    {{--                                    Quantidade de produtos--}}
-                                    {{count(session()->get('cart'))}}
-                                    {{--                                Quantidade de cada produto--}}
-                                    {{--                                    {{array_sum((array_column(session()->get('cart'),'amount')))}}--}}
-                                @else
-                                    0
-                                @endif
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
         @endauth
+        <div class="my-2 my-lg-0">
+            <ul class="navbar-nav mr-auto">
+                {{--                    <li class="nav-item">--}}
+                {{--                        <a class="nav-link" href="#" onclick="event.preventDefault();--}}
+                {{--                                                                  document.querySelector('form.logout').submit(); ">Sair</a>--}}
+
+                {{--                        <form action="{{route('logout')}}" class="logout" method="POST" style="display:none;">--}}
+                {{--                            @csrf--}}
+                {{--                        </form>--}}
+                {{--                    </li>--}}
+                {{--                    <li class="nav-item">--}}
+                {{--                        <span class="nav-link">{{auth()->user()->name}}</span>--}}
+                {{--                    </li>--}}
+                <li class="nav-item">
+                    <a href="{{route('cart.index')}}" class="nav-link">
+                        Carrinho
+                        <span class="badge bg-danger">
+                            @if(session()->has('cart'))
+                                {{--                                    Quantidade de produtos--}}
+                                {{count(session()->get('cart'))}}
+                                {{--                                Quantidade de cada produto--}}
+                                {{--                                    {{array_sum((array_column(session()->get('cart'),'amount')))}}--}}
+                            @else
+                                0
+                            @endif
+                            </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
 
     </div>
 </nav>
@@ -85,5 +85,6 @@
     @include('flash::message')
     @yield('content')
 </div>
+@yield('scripts')
 </body>
 </html>
