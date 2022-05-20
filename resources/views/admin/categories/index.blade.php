@@ -11,7 +11,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($categories as $category)
+        @forelse($categories as $category)
             <tr>
                 <td>{{$category->id}}</td>
                 <td>{{$category->name}}</td>
@@ -28,7 +28,11 @@
                     </div>
                 </td>
             </tr>
-        @endforeach
+        @empty
+            <tr class="text-center">
+                <td colspan="4">Não há categoria(s) cadastrada(s)!</td>
+            </tr>
+        @endforelse
         </tbody>
     </table>
 

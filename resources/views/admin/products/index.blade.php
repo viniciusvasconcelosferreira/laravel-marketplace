@@ -12,7 +12,7 @@
         </tr>
         </thead>
         <tbody>
-        @if($products->count() <= 0)
+        @if(is_null($products) or $products->count() <= 0)
             <tr class="text-center">
                 <td colspan="5">O usuário não possui loja e/ou produto(s) cadastrado(s)!</td>
             </tr>

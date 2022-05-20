@@ -69,6 +69,7 @@ class CartController extends Controller
 
     private function productIncrement($slug, $amount, $products)
     {
+//        Aplica uma função em todos os elementos dos arrays dados
         $products = array_map(function ($line) use ($slug, $amount) {
             if ($slug == $line['slug']) {
                 $line['amount'] += $amount;

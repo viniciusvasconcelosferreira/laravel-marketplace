@@ -29,7 +29,7 @@ class ProductsController extends Controller
         // armazena na variavel products a loja(objeto) do usuário
         // autenticado que faz acesso aos produtos via metodo para
         // poder gerar o paginate
-        $products = auth()->user()->store->products()->paginate(10);
+        $products = auth()->user()->store !== null ? auth()->user()->store->products()->paginate(10) : null;
 
 //        dd($products);
 
