@@ -43,6 +43,7 @@ class Store extends Model
 
     public function products()
     {
+        //possui vários
         return $this->hasMany(Product::class);
     }
 }

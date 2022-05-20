@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Traits;
+/*
+Traits são pura e simplesmente para reuso de código, que pode nos auxiliar nos casos em que fatalmente
+precisamos cair no comportamento de “copiar e colar” determinados trechos de códigos em diferentes classes
+*/
 
 trait UploadTrait
 {

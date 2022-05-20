@@ -15,6 +15,9 @@ class DatabaseSeeder extends Seeder
     {
 //        \App\Models\User::factory(10)->create();
         // chama a função que faz a inserção de dados para teste
-        $this->call(UsersTableSeeder::class);
+        $this->call([
+            UsersTableSeeder::class,
+            StoreTableSeeder::class
+        ]);
     }
 }

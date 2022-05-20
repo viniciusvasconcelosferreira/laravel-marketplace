@@ -44,8 +44,11 @@ class User extends Authenticatable
 
     public function store()
     {
-        //possui
-        //caso campo no banco seja diferente do nome da model, identificar o mesmo via parametro return $this->hasOne(Store::class,'<nome_do_campo>');
+        //possui um
         return $this->hasOne(Store::class);
+        /*
+        Caso campo no banco seja diferente do nome da model, identificar o mesmo via parametro return
+        Ex.: $this->hasOne(Store::class,'<nome_do_campo>');
+        */
     }
 }

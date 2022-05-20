@@ -4,7 +4,7 @@
     <div class="front row">
         @foreach($products as $key => $product)
             <div class="col-md-4">
-                <div class="card" style="width: 100%;">
+                <div class="card h-100" style="width: 100%;">
                     @if($product->photos->count())
                         <img src="{{asset('storage/'.$product->photos->first()->image)}}" class="card-img-top" alt="">
                     @else
@@ -13,6 +13,8 @@
                     <div class="card-body">
                         <h5 class="card-title">{{$product->name}}</h5>
                         <p class="card-text">{{$product->description}}</p>
+                    </div>
+                    <div class="card-footer bg-transparent" style="border-top: 0">
                         <h3>
                             R$ {{number_format($product->price,'2',',','.')}}
                         </h3>

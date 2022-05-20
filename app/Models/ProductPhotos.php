@@ -13,6 +13,7 @@ class ProductPhotos extends Model
 
     public function product()
     {
+        //pertence ao Produto
         return $this->belongsTo(Product::class);
     }
 }
