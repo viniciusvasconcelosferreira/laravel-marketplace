@@ -58,6 +58,8 @@
 @section('scripts')
     <script type="text/javascript"
             src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+    {{--    https://projects.jga.me/jquery-builder/--}}
+    <script src="{{asset('assets/js/jquery-ajax.min.js')}}"></script>
 
     <script>
         const sessionId = '{{session()->get('pagseguro_session_code')}}';
@@ -101,9 +103,30 @@
                 expirationYear: document.querySelector('input[name=card_year]').value,
                 success: function (res) {
                     console.log(res);
+                    proccessPayment(res.card.token);
                 }
             });
         });
+
+        function proccessPayment(token) {
+            //envio de requisicoes sem reload da pagina
+            let data = {
+                card_token: token,
+                //hash para identificar o usuario que esta fazendo a requisicao
+                hash: PagSeguroDirectPayment.getSenderHash(),
+                installment: document.querySelector('select.select_installments').value,
+                _token: '{{csrf_token()}}'
+            }
+            $.ajax({
+                type: 'POST',
+                url: '{{route('checkout.proccess')}}',
+                data: data,
+                dataType: 'json',
+                success: function (res) {
+                    console.log(res);
+                }
+            });
+        }
 
         function getInstallments(amount, brand) {
             PagSeguroDirectPayment.getInstallments({
@@ -126,7 +149,7 @@
         function drawSelectInstallments(installments) {
             let select = '<label>Opções de Parcelamento:</label>';
 
-            select += '<select class="form-control">';
+            select += '<select class="form-control select_installments">';
 
             for (let l of installments) {
                 select += `<option value="${l.quantity}|${l.installmentAmount}">${l.quantity}x de ${l.installmentAmount} - Total fica ${l.totalAmount}</option>`;
