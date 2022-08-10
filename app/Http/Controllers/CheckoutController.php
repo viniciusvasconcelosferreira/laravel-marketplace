@@ -8,6 +8,7 @@ class CheckoutController extends Controller
 {
     public function index()
     {
+//        session()->forget('pagseguro_session_code');
         if (auth()->check()) {
             return redirect()->route('login');
         }

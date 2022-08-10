@@ -17,6 +17,7 @@
                             Número do Cartão
                         </label>
                         <input id="card_number" type="text" name="card_number" class="form-control">
+                        <input id="card_brand" type="hidden" name="card_brand" class="form-control">
                         <span class="brand"></span>
                     </div>
                 </div>
@@ -47,7 +48,7 @@
                     <div class="col-md-12 installments form-group"></div>
                 </div>
 
-                <button class="btn btn-success btn-lg">Efetuar Pagamento</button>
+                <button class="btn btn-success btn-lg processCheckout">Efetuar Pagamento</button>
 
             </form>
         </div>
@@ -73,6 +74,7 @@
                     cardBin: cardNumber.value.substr(0, 6),
                     success: function (res) {
                         spanBrand.innerHTML = `<img src="https://stc.pagseguro.uol.com.br/public/img/payment-methods-flags/68x30/${res.brand.name}.png" alt=""/>`;
+                        document.querySelector('input[name=card_brand]').value = res.brand.name;
                         getInstallments(40, res.brand.name);
                     },
                     error: function (err) {
@@ -85,14 +87,31 @@
             }
         });
 
+        let submitButton = document.querySelector('button.processCheckout');
+
+        submitButton.addEventListener('click', function (event) {
+            //nao executar o evento padrao de submit
+            event.preventDefault();
+
+            PagSeguroDirectPayment.createCardToken({
+                cardNumber: document.querySelector('input[name=card_number]').value,
+                brand: document.querySelector('input[name=card_brand]').value,
+                cvv: document.querySelector('input[name=card_cvv]').value,
+                expirationMonth: document.querySelector('input[name=card_month]').value,
+                expirationYear: document.querySelector('input[name=card_year]').value,
+                success: function (res) {
+                    console.log(res);
+                }
+            });
+        });
+
         function getInstallments(amount, brand) {
             PagSeguroDirectPayment.getInstallments({
                 amount: amount,
                 brand: brand,
                 maxInstallmentNoInterest: 0,
                 success: function (res) {
-                    let selectInstallments = drawSelectInstallments(res.installments[brand]);
-                    document.querySelector('div.installments').innerHTML = selectInstallments;
+                    document.querySelector('div.installments').innerHTML = drawSelectInstallments(res.installments[brand]);
                     console.log(res);
                 },
                 error: function (err) {
