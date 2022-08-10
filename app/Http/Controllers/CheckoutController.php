@@ -23,7 +23,7 @@ class CheckoutController extends Controller
             $sessionCode = \PagSeguro\Services\Session::create(
                 \PagSeguro\Configuration\Configure::getAccountCredentials()
             );
-
+//        dd($sessionCode);
             session()->put('pagseguro_session_code', $sessionCode->getResult());
         }
     }

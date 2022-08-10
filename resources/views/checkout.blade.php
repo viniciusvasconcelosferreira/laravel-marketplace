@@ -44,6 +44,7 @@
                         </label>
                         <input type="text" name="card_cvv" class="form-control">
                     </div>
+                    <div class="col-md-12 installments form-group"></div>
                 </div>
 
                 <button class="btn btn-success btn-lg">Efetuar Pagamento</button>
@@ -54,8 +55,8 @@
 @endsection
 
 @section('scripts')
-    <script src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"
-            type="text/javascript"></script>
+    <script type="text/javascript"
+            src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
 
     <script>
         const sessionId = '{{session()->get('pagseguro_session_code')}}';
@@ -72,6 +73,7 @@
                     cardBin: cardNumber.value.substr(0, 6),
                     success: function (res) {
                         spanBrand.innerHTML = `<img src="https://stc.pagseguro.uol.com.br/public/img/payment-methods-flags/68x30/${res.brand.name}.png" alt=""/>`;
+                        getInstallments(40, res.brand.name);
                     },
                     error: function (err) {
                         console.log(err);
@@ -89,6 +91,8 @@
                 brand: brand,
                 maxInstallmentNoInterest: 0,
                 success: function (res) {
+                    let selectInstallments = drawSelectInstallments(res.installments[brand]);
+                    document.querySelector('div.installments').innerHTML = selectInstallments;
                     console.log(res);
                 },
                 error: function (err) {
@@ -98,6 +102,21 @@
                     //console.log('Complete: ', res);
                 }
             });
+        }
+
+        function drawSelectInstallments(installments) {
+            let select = '<label>Opções de Parcelamento:</label>';
+
+            select += '<select class="form-control">';
+
+            for (let l of installments) {
+                select += `<option value="${l.quantity}|${l.installmentAmount}">${l.quantity}x de ${l.installmentAmount} - Total fica ${l.totalAmount}</option>`;
+            }
+
+
+            select += '</select>';
+
+            return select;
         }
     </script>
 @endsection
