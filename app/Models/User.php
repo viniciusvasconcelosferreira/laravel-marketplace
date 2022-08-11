@@ -51,4 +51,9 @@ class User extends Authenticatable
         Ex.: $this->hasOne(Store::class,'<nome_do_campo>');
         */
     }
+
+    public function orders()
+    {
+        return $this->hasMany(UserOrder::class);
+    }
 }
