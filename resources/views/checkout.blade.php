@@ -14,11 +14,20 @@
                 <div class="row">
                     <div class="col-md-12 form-group">
                         <label for="card_number">
+                            Nome do Cartão
+                        </label>
+                        <input id="card_name" type="text" name="card_name" class="form-control">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12 form-group">
+                        <label for="card_number">
                             Número do Cartão
                         </label>
+                        <span class="brand"></span>
                         <input id="card_number" type="text" name="card_number" class="form-control">
                         <input id="card_brand" type="hidden" name="card_brand" class="form-control">
-                        <span class="brand"></span>
                     </div>
                 </div>
 
@@ -67,6 +76,7 @@
     </script>
 
     <script>
+        let amountTransaction = '{{$cartItems}}';
         let cardNumber = document.querySelector('input[name=card_number]');
         let spanBrand = document.querySelector('span.brand');
 
@@ -77,7 +87,7 @@
                     success: function (res) {
                         spanBrand.innerHTML = `<img src="https://stc.pagseguro.uol.com.br/public/img/payment-methods-flags/68x30/${res.brand.name}.png" alt=""/>`;
                         document.querySelector('input[name=card_brand]').value = res.brand.name;
-                        getInstallments(40, res.brand.name);
+                        getInstallments(amountTransaction, res.brand.name);
                     },
                     error: function (err) {
                         console.log(err);
@@ -115,6 +125,7 @@
                 //hash para identificar o usuario que esta fazendo a requisicao
                 hash: PagSeguroDirectPayment.getSenderHash(),
                 installment: document.querySelector('select.select_installments').value,
+                card_name: document.querySelector('input[name=card_name]').value,
                 _token: '{{csrf_token()}}'
             }
             $.ajax({
