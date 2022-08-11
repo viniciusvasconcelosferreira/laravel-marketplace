@@ -112,7 +112,7 @@
                 expirationMonth: document.querySelector('input[name=card_month]').value,
                 expirationYear: document.querySelector('input[name=card_year]').value,
                 success: function (res) {
-                    console.log(res);
+                    // console.log(res);
                     proccessPayment(res.card.token);
                 }
             });
@@ -127,14 +127,15 @@
                 installment: document.querySelector('select.select_installments').value,
                 card_name: document.querySelector('input[name=card_name]').value,
                 _token: '{{csrf_token()}}'
-            }
+            };
+
             $.ajax({
                 type: 'POST',
                 url: '{{route('checkout.proccess')}}',
                 data: data,
                 dataType: 'json',
                 success: function (res) {
-                    console.log(res);
+                    alert(res.data.message);
                 }
             });
         }

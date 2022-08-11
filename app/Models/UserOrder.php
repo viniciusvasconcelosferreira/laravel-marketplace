@@ -9,6 +9,14 @@ class UserOrder extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'reference',
+        'items',
+        'pagseguro_code',
+        'pagseguro_status',
+        'store_id',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
