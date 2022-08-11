@@ -1,5 +1,7 @@
 @extends('layouts.front')
-
+@section('stylesheets')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+@endsection
 @section('content')
     <div class="container">
         <div class="col-md-6">
@@ -67,8 +69,12 @@
 @section('scripts')
     <script type="text/javascript"
             src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"
+            integrity="sha512-DUC8yqWf7ez3JD1jszxCWSVB0DMP78eOyBpMa5aJki1bIRARykviOuImIczkxlj1KhVSyS16w2FSQetkD4UU2w=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     {{--    https://projects.jga.me/jquery-builder/--}}
-    <script src="{{asset('assets/js/jquery-ajax.min.js')}}"></script>
+    {{--    <script src="{{asset('assets/js/jquery-ajax.min.js')}}"></script>--}}
 
     <script>
         const sessionId = '{{session()->get('pagseguro_session_code')}}';
@@ -135,7 +141,8 @@
                 data: data,
                 dataType: 'json',
                 success: function (res) {
-                    alert(res.data.message);
+                    toastr.success(res.data.message, 'Sucesso');
+                    window.location.href = '{{route('checkout.thanks')}}?order=' + res.data.order;
                 }
             });
         }

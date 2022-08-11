@@ -14,6 +14,9 @@ class CheckoutController extends Controller
             return redirect()->route('login');
         }
 
+        if (!session()->has('cart'))
+            return redirect()->route('home');
+
         $this->makePagSeguroSession();
 
         $cartItems = array_map(function ($line) {
@@ -27,31 +30,48 @@ class CheckoutController extends Controller
 
     public function proccess(Request $request)
     {
-        $dataPost = $request->all();
-        $user = auth()->user();
-        $cartItems = session()->get('cart');
-        $reference = 'XPTO';
+        try {
+            $dataPost = $request->all();
+            $user = auth()->user();
+            $cartItems = session()->get('cart');
+            $reference = 'XPTO';
 
-        $creditCardPayment = new CreditCard($cartItems, $user, $dataPost, $reference);
-        $result = $creditCardPayment->doPayment();
+            $creditCardPayment = new CreditCard($cartItems, $user, $dataPost, $reference);
+            $result = $creditCardPayment->doPayment();
 
-        // https://vardumpformatter.io/
+            // https://vardumpformatter.io/
 //        var_dump($result);
-        $userOrder = [
-            'pagseguro_code' => $result->getCode(),
-            'reference' => $reference,
-            'items' => serialize($cartItems),
-            'pagseguro_status' => $result->getStatus(),
+            $userOrder = [
+                'pagseguro_code' => $result->getCode(),
+                'reference' => $reference,
+                'items' => serialize($cartItems),
+                'pagseguro_status' => $result->getStatus(),
 //            'user_id' => '',
-            'store_id' => 42,
-        ];
-        $user->orders()->create($userOrder);
-        return response()->json([
-            'data' => [
-                'status' => true,
-                'message' => 'Pedido criado com sucesso!'
-            ]
-        ]);
+                'store_id' => 42,
+            ];
+            $user->orders()->create($userOrder);
+            session()->forget(['cart', 'pagseguro_session_code']);
+            return response()->json([
+                'data' => [
+                    'status' => true,
+                    'message' => 'Pedido criado com sucesso!',
+                    'order' => $reference
+                ]
+            ]);
+        } catch (\Exception $e) {
+            $message = env('APP_DEBUG') ? $e->getMessage() : 'Erro ao processar pedido!';
+            return response()->json([
+                'data' => [
+                    'status' => false,
+                    'message' => $message
+                ]
+            ], 401);
+        }
+    }
+
+    public function thanks()
+    {
+        return view('thanks');
     }
 
     private function makePagSeguroSession()
