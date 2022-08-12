@@ -3,22 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Illuminate\Http\Request;
+use App\Models\Store;
 
 class HomeController extends Controller
 {
     private $product;
 
-    public function __construct(Product $product)
+    public function __construct(Product $product, Store $store)
     {
         $this->product = $product;
+        $this->store = $store;
     }
 
     public function index()
     {
-        $products = $this->product->limit(9)->orderBy('id', 'DESC')->get();
+        $products = $this->product->limit(6)->orderBy('id', 'DESC')->get();
 
-        return view('welcome', compact('products'));
+        $stores = $this->store->limit(3)->get();
+
+        return view('welcome', compact('products', 'stores'));
     }
 
     public function single($slug)

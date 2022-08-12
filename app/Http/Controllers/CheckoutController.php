@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Payment\PagSeguro\CreditCard;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CheckoutController extends Controller
 {
@@ -34,7 +35,7 @@ class CheckoutController extends Controller
             $dataPost = $request->all();
             $user = auth()->user();
             $cartItems = session()->get('cart');
-            $reference = 'XPTO';
+            $reference = strtoupper(Str::random(10));
 
             $creditCardPayment = new CreditCard($cartItems, $user, $dataPost, $reference);
             $result = $creditCardPayment->doPayment();
