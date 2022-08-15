@@ -22,7 +22,7 @@
             <hr>
             <h3 style="margin-bottom: 30px">Produtos desta loja</h3>
         </div>
-        
+
         @forelse($store->products as $key => $product)
             <div class="col-md-4">
                 <div class="card h-100" style="width: 100%;">
