@@ -41,6 +41,7 @@
                 @endif
                 <h3>{{$store->name}}</h3>
                 <p>{{$store->descrption}}</p>
+                <a href="{{route('store.single',['slug'=>$store->slug])}}" class="btn btn-sm btn-success">Ver Loja</a>
             </div>
         @endforeach
     </div>

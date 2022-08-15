@@ -40,6 +40,7 @@ Route::namespace('App\Http\Controllers')->group(function () {
     Route::get('/product/{slug}', 'HomeController@single')->name('product.single');
 
     Route::get('/category/{slug}', 'CategoryController@index')->name('category.single');
+    Route::get('/store/{slug}', 'StoreController@index')->name('store.single');
 
     Route::prefix('cart')->name('cart.')->group(function () {
         Route::get('/', 'CartController@index')->name('index');

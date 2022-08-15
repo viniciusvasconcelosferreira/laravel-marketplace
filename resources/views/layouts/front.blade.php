@@ -32,7 +32,7 @@
                 <a class="nav-link" href="{{route('home')}}">Home <span class="sr-only">(current)</span></a>
             </li>
             @foreach($categories as $category)
-                <li class="nav-item @if(request()->is('/')) active @endif">
+                <li class="nav-item @if(request()->is('category/'.$category->slug)) active @endif">
                     <a class="nav-link"
                        href="{{route('category.single',['slug'=>$category->slug])}}">{{$category->name}}</a>
                 </li>
@@ -53,7 +53,7 @@
                 {{--                </ul>--}}
             @endauth
 
-            <li class="nav-item">
+            <li class="nav-item @if(request()->is('/cart*')) active @endif">
                 <a href="{{route('cart.index')}}" class="nav-link" dir="ltr">
                     Carrinho
                     <span class="badge bg-danger">
