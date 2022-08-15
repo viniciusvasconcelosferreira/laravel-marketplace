@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         // chama a função que faz a inserção de dados para teste
         $this->call([
             UsersTableSeeder::class,
-            StoreTableSeeder::class,
+            StoreTableSeeder::class
         ]);
     }
 }

@@ -95,7 +95,7 @@ class ProductsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit($product)
     {
@@ -110,7 +110,7 @@ class ProductsController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(ProductRequest $request, $product)
     {

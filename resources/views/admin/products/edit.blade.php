@@ -54,12 +54,8 @@
             <select name="categories[]" class="form-control" multiple>
                 @foreach($categories as $category)
                     <option value="{{$category->id}}"
-                            @if($product->categories->contains($category))
-                            selected
-                        @endif
-                    >{{$category->name}}</option>
+                            @if($product->categories->contains($category)) selected @endif>{{$category->name}}</option>
                 @endforeach
-
             </select>
         </div>
 

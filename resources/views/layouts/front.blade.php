@@ -33,13 +33,13 @@
             </li>
             @foreach($categories as $category)
                 <li class="nav-item @if(request()->is('/')) active @endif">
-                    <a class="nav-link" href="#">{{$category->name}}</a>
+                    <a class="nav-link"
+                       href="{{route('category.single',['slug'=>$category->slug])}}">{{$category->name}}</a>
                 </li>
             @endforeach
-        </ul>
 
-        @auth
-            <ul class="navbar-nav mr-auto">
+            @auth
+                {{--                <ul class="navbar-nav mr-auto">--}}
                 <li class="nav-item @if(request()->is('admin/stores*')) active @endif">
                     <a class="nav-link" href="{{route('admin.stores.index')}}">Lojas <span
                             class="sr-only">(current)</span></a>
@@ -50,38 +50,56 @@
                 <li class="nav-item @if(request()->is('admin/categories*')) active @endif">
                     <a class="nav-link" href="{{route('admin.categories.index')}}">Categorias</a>
                 </li>
-            </ul>
-        @endauth
-        <div class="my-2 my-lg-0">
-            <ul class="navbar-nav mr-auto">
-                {{--                    <li class="nav-item">--}}
-                {{--                        <a class="nav-link" href="#" onclick="event.preventDefault();--}}
-                {{--                                                                  document.querySelector('form.logout').submit(); ">Sair</a>--}}
+                {{--                </ul>--}}
+            @endauth
 
-                {{--                        <form action="{{route('logout')}}" class="logout" method="POST" style="display:none;">--}}
-                {{--                            @csrf--}}
-                {{--                        </form>--}}
-                {{--                    </li>--}}
-                {{--                    <li class="nav-item">--}}
-                {{--                        <span class="nav-link">{{auth()->user()->name}}</span>--}}
-                {{--                    </li>--}}
-                <li class="nav-item">
-                    <a href="{{route('cart.index')}}" class="nav-link">
-                        Carrinho
-                        <span class="badge bg-danger">
+            <li class="nav-item">
+                <a href="{{route('cart.index')}}" class="nav-link" dir="ltr">
+                    Carrinho
+                    <span class="badge bg-danger">
                             @if(session()->has('cart'))
-                                {{--                                    Quantidade de produtos--}}
-                                {{count(session()->get('cart'))}}
-                                {{--                                Quantidade de cada produto--}}
-                                {{--                                    {{array_sum((array_column(session()->get('cart'),'amount')))}}--}}
-                            @else
-                                0
-                            @endif
-                            </span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+                            {{--                                    Quantidade de produtos--}}
+                            {{count(session()->get('cart'))}}
+                            {{--                                Quantidade de cada produto--}}
+                            {{--                                    {{array_sum((array_column(session()->get('cart'),'amount')))}}--}}
+                        @else
+                            0
+                        @endif </span>
+                </a>
+            </li>
+        </ul>
+
+
+        {{--        <div class="my-2 my-lg-0">--}}
+        {{--            <ul class="navbar-nav mr-auto">--}}
+        {{--                --}}{{--                    <li class="nav-item">--}}
+        {{--                --}}{{--                        <a class="nav-link" href="#" onclick="event.preventDefault();--}}
+        {{--                --}}{{--                                                                  document.querySelector('form.logout').submit(); ">Sair</a>--}}
+
+        {{--                --}}{{--                        <form action="{{route('logout')}}" class="logout" method="POST" style="display:none;">--}}
+        {{--                --}}{{--                            @csrf--}}
+        {{--                --}}{{--                        </form>--}}
+        {{--                --}}{{--                    </li>--}}
+        {{--                --}}{{--                    <li class="nav-item">--}}
+        {{--                --}}{{--                        <span class="nav-link">{{auth()->user()->name}}</span>--}}
+        {{--                --}}{{--                    </li>--}}
+        {{--                <li class="nav-item">--}}
+        {{--                    <a href="{{route('cart.index')}}" class="nav-link" dir="ltr">--}}
+        {{--                        Carrinho--}}
+        {{--                        <span class="badge bg-danger">--}}
+        {{--                            @if(session()->has('cart'))--}}
+        {{--                                --}}{{--                                    Quantidade de produtos--}}
+        {{--                                {{count(session()->get('cart'))}}--}}
+        {{--                                --}}{{--                                Quantidade de cada produto--}}
+        {{--                                --}}{{--                                    {{array_sum((array_column(session()->get('cart'),'amount')))}}--}}
+        {{--                            @else--}}
+        {{--                                0--}}
+        {{--                            @endif--}}
+        {{--                            </span>--}}
+        {{--                    </a>--}}
+        {{--                </li>--}}
+        {{--            </ul>--}}
+        {{--        </div>--}}
 
 
     </div>
