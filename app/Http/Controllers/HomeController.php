@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Store;
 
@@ -19,7 +20,7 @@ class HomeController extends Controller
     {
         $products = $this->product->limit(6)->orderBy('id', 'DESC')->get();
 
-        $stores = $this->store->limit(3)->get();
+        $stores = $this->store->limit(3)->orderBy('id', 'DESC')->get();
 
         return view('welcome', compact('products', 'stores'));
     }

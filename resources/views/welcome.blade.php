@@ -34,7 +34,11 @@
         </div>
         @foreach($stores as $store)
             <div class="col-md-4">
-                <img src="{{asset('storage/'.$store->logo)}}" alt="{{$store->name}}">
+                @if($store->logo)
+                    <img src="{{asset('storage/'.$store->logo)}}" alt="{{$store->name}}" class="img-fluid">
+                @else
+                    <img src="https://via.placeholder.com/600X300.png?text=logo" alt="Loja sem logo" class="img-fluid">
+                @endif
                 <h3>{{$store->name}}</h3>
                 <p>{{$store->descrption}}</p>
             </div>
