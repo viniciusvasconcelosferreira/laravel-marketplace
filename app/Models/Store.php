@@ -49,6 +49,7 @@ class Store extends Model
 
     public function orders()
     {
-        return $this->belongsToMany(UserOrder::class, 'order_store');
+        //model - nome da tabela no banco - nome da chave
+        return $this->belongsToMany(UserOrder::class, 'order_store', 'store_id', 'order_id');
     }
 }

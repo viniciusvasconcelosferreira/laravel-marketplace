@@ -24,8 +24,12 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
+                        <a class="nav-link @if(request()->is('admin/orders*')) active @endif" aria-current="page"
+                           href="{{route('admin.orders.my')}}">Meus Pedidos</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link @if(request()->is('admin/stores*')) active @endif" aria-current="page"
-                           href="{{route('admin.stores.index')}}">Lojas</a>
+                           href="{{route('admin.stores.index')}}">Loja</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link @if(request()->is('admin/products*')) active @endif" aria-current="page"
@@ -58,5 +62,11 @@
     @include('flash::message')
     @yield('content')
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"
+        integrity="sha512-DUC8yqWf7ez3JD1jszxCWSVB0DMP78eOyBpMa5aJki1bIRARykviOuImIczkxlj1KhVSyS16w2FSQetkD4UU2w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 </body>
 </html>

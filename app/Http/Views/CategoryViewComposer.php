@@ -15,6 +15,6 @@ class CategoryViewComposer
 
     public function compose($view)
     {
-        return $view->with('categories', $this->category->all());
+        return $view->with('categories', $this->category->all(['name', 'slug']));
     }
 }

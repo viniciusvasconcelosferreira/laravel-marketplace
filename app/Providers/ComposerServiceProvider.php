@@ -40,6 +40,6 @@ class ComposerServiceProvider extends ServiceProvider
         */
 
         //compartilhar com todas as views o metodo compose
-        view()->composer('*', 'App\Http\Views\CategoryViewComposer@compose');
+        view()->composer('layouts.front', 'App\Http\Views\CategoryViewComposer@compose');
     }
 }
