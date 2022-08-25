@@ -49,6 +49,6 @@ class Store extends Model
 
     public function orders()
     {
-        return $this->hasMany(UserOrder::class);
+        return $this->belongsToMany(UserOrder::class, 'order_store');
     }
 }

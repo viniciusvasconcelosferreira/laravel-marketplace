@@ -35,6 +35,8 @@ class CheckoutController extends Controller
             $dataPost = $request->all();
             $user = auth()->user();
             $cartItems = session()->get('cart');
+            //array_unique -> remover duplicidade | array_column -> pegar determinada coluna de um array
+            $stores = array_unique(array_column($cartItems, 'store_id'));
             $reference = strtoupper(Str::random(10));
 
             $creditCardPayment = new CreditCard($cartItems, $user, $dataPost, $reference);
@@ -50,7 +52,10 @@ class CheckoutController extends Controller
 //            'user_id' => '',
                 'store_id' => 42,
             ];
-            $user->orders()->create($userOrder);
+            //usurio com pedidos
+            $userOrder = $user->orders()->create($userOrder); //UserOrder
+            //ligacao do pedido com as lojas
+            $userOrder->stores()->sync($stores);
             session()->forget(['cart', 'pagseguro_session_code']);
             return response()->json([
                 'data' => [
