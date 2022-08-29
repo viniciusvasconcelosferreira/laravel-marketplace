@@ -51,8 +51,10 @@
                     <a class="nav-link" href="{{route('admin.categories.index')}}">Categorias</a>
                 </li>
                 {{--                </ul>--}}
+                <li class="nav-item @if(request()->is('/my-orders*')) active @endif)"><a
+                        href="{{route('user.orders')}}"
+                        class="nav-link">Meus Pedidos</a></li>
             @endauth
-
             <li class="nav-item @if(request()->is('/cart*')) active @endif">
                 <a href="{{route('cart.index')}}" class="nav-link" dir="ltr">
                     Carrinho
@@ -109,6 +111,12 @@
     @include('flash::message')
     @yield('content')
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"
+        integrity="sha512-DUC8yqWf7ez3JD1jszxCWSVB0DMP78eOyBpMa5aJki1bIRARykviOuImIczkxlj1KhVSyS16w2FSQetkD4UU2w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 @yield('scripts')
 </body>
 </html>
