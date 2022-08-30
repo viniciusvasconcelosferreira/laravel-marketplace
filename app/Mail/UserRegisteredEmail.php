@@ -34,6 +34,13 @@ class UserRegisteredEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.user-registered');
+        return $this
+            //assunto
+            ->subject('Conta Criada com Sucesso!')
+            //responder a
+            ->replyTo(env('MAIL_REPLY_TO_ADDRESS'))
+            ->view('emails.user-registered')
+            //uso de atributo privado
+            ->with(['user' => $this->user]);
     }
 }

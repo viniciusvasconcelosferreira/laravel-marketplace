@@ -17,8 +17,8 @@ class OrdersController extends Controller
 
     public function index()
     {
-        //busca dos pedidos das lojas do usuário
-        $orders = auth()->user()->store->orders()->paginate(15);
+        //busca dos pedidos das lojas do utilizador
+        $orders = auth()->user()->store ? auth()->user()->store->orders()->paginate(15) : auth()->user()->store;
 
         return view('admin.orders.index', compact('orders'));
     }
