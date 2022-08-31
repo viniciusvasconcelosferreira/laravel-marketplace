@@ -37,7 +37,7 @@ class CheckoutController extends Controller
             $cartItems = session()->get('cart');
             //array_unique -> remover duplicidade | array_column -> pegar determinada coluna de um array
             $stores = array_unique(array_column($cartItems, 'store_id'));
-            $reference = strtoupper(Str::random(10));
+            $reference = Str::uuid();
 
             $creditCardPayment = new CreditCard($cartItems, $user, $dataPost, $reference);
             $result = $creditCardPayment->doPayment();

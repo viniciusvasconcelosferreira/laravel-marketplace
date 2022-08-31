@@ -3,8 +3,8 @@
 
 <p>
     Faça bom proveito e excelentes compras no nosso marketplace!<br>
-    Seu email de cadastro é: <strong>{{$user->email}}</strong><br>
-    Sua senha: <strong>Por questões de segurança não enviamos a sua senha, mas você deve se lembrar!</strong>
+    Seu endereço eletrónico de cadastro é: <strong>{{$user->email}}</strong><br>
+    Sua senha: <strong>Por questões de segurança não enviamos a sua senha!</strong>
 </p>
 <hr>
 Email enviado em {{date('d/m/Y H:i:s')}}
