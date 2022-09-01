@@ -177,22 +177,23 @@ Route::group(['middleware' => ['auth']], function () {
 
 Auth::routes();
 
+// Funcionamento de amostragem e leitura das notificações
 Route::get('not', function () {
-    $user = \App\Models\User::find(41);
-    $user->notify(new \App\Notifications\StoreReceiveNewOrder());
-
-    $notification = $user->unreadNotifications->first();
-    $notification->markAsRead();
-
-    $stores = [43, 41, 30];
-
-    $stores = \App\Models\Store::whereIn('id', $stores)->get();
-
-    return $stores->map(function ($store) {
-        return $store->user;
-    });
-
-    return $user->readNotifications->count();
+//    $user = \App\Models\User::find(41);
+//    $user->notify(new \App\Notifications\StoreReceiveNewOrder());
+//
+//    $notification = $user->unreadNotifications->first();
+//    $notification->markAsRead();
+//
+//    $stores = [43, 41, 30];
+//
+//    $stores = \App\Models\Store::whereIn('id', $stores)->get();
+//
+//    return $stores->map(function ($store) {
+//        return $store->user;
+//    });
+//
+//    return $user->readNotifications->count();
 });
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

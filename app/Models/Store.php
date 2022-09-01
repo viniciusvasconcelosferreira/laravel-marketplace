@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\StoreReceiveNewOrder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Sluggable\HasSlug;
@@ -51,5 +52,14 @@ class Store extends Model
     {
         //model - nome da tabela no banco - nome da chave
         return $this->belongsToMany(UserOrder::class, 'order_store', 'store_id', 'order_id');
+    }
+
+    public function notifyStoreOwners(array $storesId = [])
+    {
+        $stores = $this->whereIn('id', $storesId)->get();
+
+        $stores->map(function ($store) {
+            return $store->user;
+        })->each->notify(new StoreReceiveNewOrder());
     }
 }
