@@ -8,7 +8,7 @@
             <hr>
         </div>
         <div class="col-12">
-            @if($orders)
+            @if(count($orders)>0)
                 <div class="accordion" id="accordionExample">
                     @foreach($orders as $key => $order)
                         <div class="accordion-item">
