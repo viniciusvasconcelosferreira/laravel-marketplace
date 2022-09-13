@@ -169,7 +169,9 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::resource('categories', 'CategoryController');
 
-        Route::get('notifications','NotificationController@notifications');
+        Route::get('notifications', 'NotificationController@notifications')->name('notifications.index');
+        Route::get('notifications/read/{notification}', 'NotificationController@read')->name('notifications.read');
+        Route::get('notifications/read-all', 'NotificationController@readAll')->name('notifications.read.all');
 
 //name() = apelido
         Route::post('photos/remove', 'ProductPhotoController@removePhoto')->name('photo.remove');

@@ -6,6 +6,9 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Vonage\Client;
+use Vonage\Client\Credentials\Basic;
+use Vonage\SMS\Message\SMS;
 
 class StoreReceiveNewOrder extends Notification
 {
@@ -29,7 +32,13 @@ class StoreReceiveNewOrder extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return [
+            'database',
+//            'sms',
+//            'vonage',
+//            'mail',
+//            'nexmo'
+        ];
     }
 
     /**
@@ -41,9 +50,11 @@ class StoreReceiveNewOrder extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-            ->line('The introduction to the notification.')
-            ->action('Notification Action', url('/'))
-            ->line('Thank you for using our application!');
+            ->subject('Você recebeu um novo pedido!')
+            ->greeting('Olá, vendedor! Tudo bem?')
+            ->line('Você recebeu um novo pedido na loja!')
+            ->action('Ver pedido', route('admin.orders.my'));
+//            ->line('Thank you for using our application!');
     }
 
     /**
@@ -54,8 +65,25 @@ class StoreReceiveNewOrder extends Notification
      */
     public function toArray($notifiable)
     {
+        $basic = new Basic(env('VONAGE_KEY'), env('VONAGE_SECRET'));
+        $client = new Client($basic);
+        $response = $client->sms()->send(
+            new SMS(env('VONAGE_TO'), env('APP_NAME'), 'Você recebeu um novo pedido em nosso site!')
+        );
+
         return [
             'message' => 'Existe uma nova solicitação de pedido!'
         ];
+    }
+
+    public function toVonage($notifiable)
+    {
+        $basic = new Basic(env('VONAGE_KEY'), env('VONAGE_SECRET'));
+
+        return (new Client($basic))
+            ->sms()
+            ->send(
+                new SMS(env('VONAGE_TO'), env('APP_NAME'), 'Você recebeu um novo pedido em nosso site!')
+            );
     }
 }

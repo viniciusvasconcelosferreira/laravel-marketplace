@@ -56,4 +56,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(UserOrder::class);
     }
+
+    public function routeNotificationForVonage($notification)
+    {
+        return env('VONAGE_TO');
+    }
 }

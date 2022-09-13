@@ -43,6 +43,15 @@
                 </ul>
                 <div class="d-flex">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a href="{{route('admin.notifications.index')}}" class="nav-link">
+                                <span style="font-size: 26px" class="fa-layers fa-fw">
+                            <i class="fa fa-bell"></i>
+                                <span class="fa-layers-counter" style="background:red">
+                                    {{auth()->user()->unreadnotifications->count()}}
+                                </span>
+                        </span>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <span class="nav-link">{{auth()->user()->name}}</span>
                         </li>

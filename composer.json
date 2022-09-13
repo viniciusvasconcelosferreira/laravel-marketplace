@@ -17,7 +17,9 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
         "pagseguro/pagseguro-php-sdk": "^6.0",
-        "spatie/laravel-sluggable": "^2.6"
+        "spatie/laravel-sluggable": "^2.6",
+        "vonage/client": "^3.0",
+        "vonage/vonage-laravel": "^1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",

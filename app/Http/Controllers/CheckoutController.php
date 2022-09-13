@@ -38,13 +38,13 @@ class CheckoutController extends Controller
             $cartItems = session()->get('cart');
             //array_unique -> remover duplicidade | array_column -> pegar determinada coluna de um array
             $stores = array_unique(array_column($cartItems, 'store_id'));
-            $reference = Str::uuid();
+            $reference = Str::uuid()->toString();
 
             $creditCardPayment = new CreditCard($cartItems, $user, $dataPost, $reference);
             $result = $creditCardPayment->doPayment();
 
             // https://vardumpformatter.io/
-//        var_dump($result);
+//            print_r($result);
             $userOrder = [
                 'pagseguro_code' => $result->getCode(),
                 'reference' => $reference,
